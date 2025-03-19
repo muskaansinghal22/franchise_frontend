@@ -29,8 +29,11 @@ const Login = () => {
                 // Set token in axios default headers
                 axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
                 
-                // Redirect to dashboard
-                navigate('/dashboard');
+                if (response.data.isAdmin) {
+                    navigate('/applicants');
+                } else {
+                    navigate('/dashboard');
+                }
             }
         } catch (error) {
             console.error('Login error:', error);
