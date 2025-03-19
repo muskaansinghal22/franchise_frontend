@@ -66,7 +66,7 @@ function Applicants() {
             });
     
             // Create franchise user
-            const response = await axios.post('http://franchisebackend-production-d8f2.up.railway.app/api/create-franchise-user', {
+            const response = await axios.post('https://franchisebackend-production-d8f2.up.railway.app/api/create-franchise-user', {
                 applicationId: id,
                 username: username,
                 password: password
