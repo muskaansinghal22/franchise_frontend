@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaCalendar, FaRupeeSign, FaUsers, FaEnvelope } from 'react-icons/fa';
-
+import axiosInstance from '../utils/axiosInstance';
 const Todays = () => {
     const [salesData, setSalesData] = useState({
         date: new Date().toISOString().split('T')[0],
@@ -9,7 +9,8 @@ const Todays = () => {
         totalSales: '',
         totalCustomers: ''
     });
-
+    const [isLoading, setIsLoading] = useState(false);
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setSalesData(prev => ({
@@ -20,25 +21,21 @@ const Todays = () => {
 
     const handleSubmit = async () => {
         try {
+            setIsLoading(true);
             // Validate inputs
             if (!salesData.email || !salesData.date || !salesData.totalSales || !salesData.totalCustomers) {
                 alert('Please fill all fields');
                 return;
             }
 
-            const response = await axios.post('https://franchisebackend-production-d8f2.up.railway.app/api/sales/today', {
+            const response = await axiosInstance.post('/api/sales/today', {
                 email: salesData.email,
                 date: new Date(salesData.date).toISOString(),
                 totalSales: Number(salesData.totalSales),
                 totalCustomers: Number(salesData.totalCustomers)
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             });
 
-            if (response.status === 201) {
+            if (response.status === 201 || response.status === 200) {
                 alert('Sales data saved successfully!');
                 // Reset form
                 setSalesData({
@@ -49,8 +46,14 @@ const Todays = () => {
                 });
             }
         } catch (error) {
-            console.error('Error saving sales data:', error);
-            alert('Failed to save sales data: ' + error.message);
+            console.error('Error details:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status
+            });
+            alert(`Failed to save sales data: ${error.response?.data?.message || error.message}`);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -135,9 +138,14 @@ const Todays = () => {
                     <div className="pt-4">
                         <input
                             type="button"
-                            value="Publish Sales Data"
+                            value={isLoading ? "Saving..." : "Publish Sales Data"}
                             onClick={handleSubmit}
-                            className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white py-3 px-6 rounded-lg font-medium hover:from-gray-900 hover:to-black transition-all duration-200 cursor-pointer"
+                            disabled={isLoading}
+                            className={`w-full bg-gradient-to-r ${
+                                isLoading 
+                                    ? 'from-gray-400 to-gray-500 cursor-not-allowed' 
+                                    : 'from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black cursor-pointer'
+                            } text-white py-3 px-6 rounded-lg font-medium transition-all duration-200`}
                         />
                     </div>
                 </div>
