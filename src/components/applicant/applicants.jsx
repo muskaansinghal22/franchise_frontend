@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import { nanoid } from 'nanoid';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
@@ -103,8 +103,12 @@ function Applicants() {
                     
                     alert('Franchise created successfully! Login credentials have been sent to the email.');
                 } catch (emailError) {
-                    console.error('Email sending failed:', emailError);
-                    alert('Franchise created but failed to send email with credentials.');
+                    console.error('Detailed email error:', {
+                        message: emailError.message,
+                        text: emailError.text,
+                        name: emailError.name
+                    });
+                    alert('Franchise created but failed to send email with credentials. Error: ' + emailError.message);
                 }
             }
         } catch (error) {

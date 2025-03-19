@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
 import UpdatePassword from "./components/UpdatePassword";
 import { useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import setupAxiosInterceptors from './utils/axiosConfig';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import TeamMember from './components/team/TeamMember';
