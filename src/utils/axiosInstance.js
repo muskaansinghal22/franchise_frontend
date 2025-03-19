@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:4000'
+    baseURL: 'https://franchisebackend-production-d8f2.up.railway.app'
 });
 
 // List of routes that don't need authentication

@@ -49,7 +49,7 @@ const History = () => {
     const handleSearch = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:4000/api/sales/history', {
+            const response = await axios.get('http://franchisebackend-production-d8f2.up.railway.app/api/sales/history', {
                 params: {
                     fromDate: dateRange.fromDate,
                     toDate: dateRange.toDate

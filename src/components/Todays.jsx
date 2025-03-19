@@ -26,7 +26,7 @@ const Todays = () => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:4000/api/sales/today', {
+            const response = await axios.post('http://franchisebackend-production-d8f2.up.railway.app/api/sales/today', {
                 email: salesData.email,
                 date: new Date(salesData.date).toISOString(),
                 totalSales: Number(salesData.totalSales),
