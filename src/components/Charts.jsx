@@ -56,7 +56,7 @@ const Charts = () => {
     const handleDisplay = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('https://https://franchisebackend-production-d8f2.up.railway.app/api/sales/history', {
+            const response = await axios.get('https://franchisebackend-production-d8f2.up.railway.app/api/sales/history', {
                 params: {
                     fromDate: dateRange.fromDate,
                     toDate: dateRange.toDate

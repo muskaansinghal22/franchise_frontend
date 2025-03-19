@@ -31,6 +31,11 @@ const Todays = () => {
                 date: new Date(salesData.date).toISOString(),
                 totalSales: Number(salesData.totalSales),
                 totalCustomers: Number(salesData.totalCustomers)
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             if (response.status === 201) {
