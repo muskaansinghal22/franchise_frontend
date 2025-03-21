@@ -20,7 +20,7 @@ Responsive design
 
 🔌 Backend
 
-This application is powered by a dedicated backend. Find the backend repo here: 
+This application is powered by a dedicated backend. Find the backend repo here: https://github.com/muskaansinghal22/franchise_backend/tree/main
 
 
 
